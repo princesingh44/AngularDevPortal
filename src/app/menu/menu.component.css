@@ -1,0 +1,58 @@
+/* #menuContainer {
+    height: 100vh; */
+    /* top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);  
+} */
+
+#menuList {
+    margin-top: 36vh;
+}
+
+#menu{
+    position: absolute;
+    height: 100vh;
+    /* left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); */
+}
+/*
+#divContainer{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#myAppMenu{
+    color:lightgreen;
+    text-align: center;
+    padding:5px;
+    margin:auto
+}
+
+#myAppMenu:hover{
+    background-color: green;
+}
+
+#startAppMenu{
+    color:lightgreen;
+    text-align: center;
+    padding:5px;
+    margin:auto
+}
+
+#startAppMenu:hover{
+    background-color: green;
+}
+
+#myExceptionsMenu{
+    color:lightgreen;
+    text-align: center;
+    padding:5px;
+    margin:auto
+}
+
+#myExceptionsMenu:hover{
+    background-color: green;
+} */
