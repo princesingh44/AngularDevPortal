@@ -1,3 +1,134 @@
 <div>
-  My Apps component works
+  <label id="my-apps-title">My Apps</label>
+  <div id="sub-heading-div">
+    <hr>
+    <div id="sub-title-div">
+      <div id="title-image">
+        <img src="../../assets/images/desktopAppIcon.png" height="20px" width="20px">
+        <label id="sub-title">My Apps</label>
+      </div>
+    </div>  
+    <div id="filter-section">
+      <label id="filter-label">Filter:</label>
+      <div class="dropdown" class="dropdown-list">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Service Name
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+      <div class="dropdown" class="dropdown-list">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Platform
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+      <div class="dropdown" class="dropdown-list">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Project Key
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+      <div class="dropdown" class="dropdown-list">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Scrum Team
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+      <button id="clear-filter-button" type="button" class="btn btn-default">Clear Filter</button>
+    </div>
+
+    <div id="table-div">
+      <table id="table-id" class="table table-trapped">
+        <thead>
+          <tr>
+            <th>Service Name</th>
+            <th>Platform</th>
+            <th>Project Key</th>
+            <th>Scrum Team</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr id="first-row" (click)="showDetails()">
+            <td>App1</td>
+            <td>Docker</td>
+            <td>SOADAS</td>
+            <td>Olympics</td>
+            <td class="approved">Approved</td>
+          </tr>
+
+          <tr>
+            <td colspan="5" id="first-row-detail">
+              <div id="app1-details" *ngIf="showDiv">
+                <h5>App1</h5>
+                <div id="splitter">
+                  <div id="first-column">
+                    <label>Platform: <i>{{ appDetails.platform }}</i></label><br>
+                    <label>Scrum team: <i>{{ appDetails.scrumTeam }}</i></label><br>
+                    <label>Jira key: <i>{{ appDetails.jiraKey }}</i></label><br>
+                    <label>Request type: <i>{{ appDetails.requestType }}</i></label><br>
+                    <label>Project Key: <i>{{ appDetails.projectKey }}</i></label><br>
+                    <label>Service Health URL: <i>{{ appDetails.serviceHealthURL }}</i></label><br>
+                  </div>
+      
+                  <div id="second-column">
+                    <label>Service Name: <i>{{ appDetails.serviceName }}</i></label><br>
+                    <label>Context Root: <i>{{ appDetails.contextRoot }}</i></label><br>
+                    <label>Archetype: <i>{{ appDetails.archetype }}</i></label><br>
+                    <label>User ID: <i>{{ appDetails.userID }}</i></label><br>
+                    <label>Bitbucket URL: <i>{{ appDetails.bitbucketURL }}</i></label><br>
+                    <label>Bamboo URL: <i>{{ appDetails.bambooURL }}</i></label><br>
+                  </div>
+                </div>    
+              </div>
+            </td>
+          </tr>
+          <tr id="second-row" class="grey-row">
+            <td>App2</td>
+            <td>Apigee</td>
+            <td>SOADBATCH</td>
+            <td>Falcons</td>
+            <td class="in-review">In Review</td>
+          </tr>
+
+          <tr id="third-row">
+            <td>App3</td>
+            <td>Apigee</td>
+            <td>SOADCM</td>
+            <td>EventPlanners</td>
+            <td class="denied">Denied</td>
+          </tr>
+
+          <tr id="fourth-row" class="grey-row">
+            <td>App4</td>
+            <td>Docker</td>
+            <td>SOADMBR</td>
+            <td>Giants</td>
+            <td class="approved">Approved</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
