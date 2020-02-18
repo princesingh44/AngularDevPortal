@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { QuestionComponent } from './question/question.component';
+import { QuestionComponent } from './questionnaire/questionnaire.component';
 import { MenuComponent } from './menu/menu.component';
 import { AnthemLogoComponent } from './anthem-logo/anthem-logo.component';
 import { HttpClientModule } from '@angular/common/http';

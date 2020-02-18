@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { QuestionComponent } from './question/question.component';
+import { QuestionComponent } from './questionnaire/questionnaire.component';
 import {MyAppsComponent} from './my-apps/my-apps.component'
 import {MyExceptionsComponent} from './my-exceptions/my-exceptions.component'
 

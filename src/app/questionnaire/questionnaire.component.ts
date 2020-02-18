@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http'
 
 @Component({
   selector: 'app-question',
-  templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css']
+  templateUrl: './questionnaire.component.html',
+  styleUrls: ['./questionnaire.component.css']
 })
 export class QuestionComponent implements OnInit {
 
@@ -62,22 +62,18 @@ export class QuestionComponent implements OnInit {
     answerChoice = new AnswerChoice();
     answerChoice.optionText = "UI application";
     answerChoice.answerId = "a3";
-    //answerChoices[2] = answerChoice;
     answerChoices.push(answerChoice);
     
     let answer = new Answer();
     answer.answerChoice = answerChoices;
 
     let answers: Array<Answer> = [];
-    //answers[0] = answer;
     answers.push(answer);
 
     this.question.answer = answers;
     
    
-    //this.question.questionOptions = ["Web Application", "Mobile Devices", "Other Handheld Devices"];
-
-    //this.question = this.question1;
+    
    }
 
   ngOnInit(){
