@@ -1,0 +1,37 @@
+.questionDiv{
+    color: #0077C6;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    overflow: hidden;
+}
+
+#questionString{
+    font-size: 20px;;
+}
+
+#options{
+    text-indent: 30px;
+    font-size: 16px;
+}
+
+#textarea{
+    width: 600px;
+    height: 75px;
+    /* border: none; */
+    /* border-collapse: separate; */
+    /* padding: 5px; */
+    padding-top: -20px;
+}
+
+#textAreaDiv{
+    height: 120px;
+    width: 600px;
+}
+
+/* #nextButton{
+    float: right;
+}
+
+#previousButton{
+    float: right;
+    margin-right: 10px;
+} */

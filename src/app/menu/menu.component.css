@@ -1,58 +1,24 @@
-/* #menuContainer {
-    height: 100vh; */
-    /* top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);  
-} */
-
-#menuList {
-    margin-top: 36vh;
-}
-
-#menu{
-    position: absolute;
-    height: 100vh;
-    /* left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); */
-}
-/*
 #divContainer{
     position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    background-color: #F8F8F8;
+    border-right: 0.02px lightgrey solid;
+    height: 100vh;
 }
 
-#myAppMenu{
-    color:lightgreen;
-    text-align: center;
-    padding:5px;
-    margin:auto
+.zero-space{
+    margin: 0px;
+    margin-left: 10px;
 }
 
-#myAppMenu:hover{
-    background-color: green;
+.menu-style{
+    color:#0077C6;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0.02px lightgrey solid;;
 }
 
-#startAppMenu{
-    color:lightgreen;
-    text-align: center;
-    padding:5px;
-    margin:auto
+.menu-style:hover{
+    background-color: lightgrey;
+    cursor: pointer;
 }
-
-#startAppMenu:hover{
-    background-color: green;
-}
-
-#myExceptionsMenu{
-    color:lightgreen;
-    text-align: center;
-    padding:5px;
-    margin:auto
-}
-
-#myExceptionsMenu:hover{
-    background-color: green;
-} */
