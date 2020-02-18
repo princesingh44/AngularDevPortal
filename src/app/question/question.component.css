@@ -35,3 +35,52 @@
     float: right;
     margin-right: 10px;
 } */
+
+
+
+#question-content{
+    position: relative;
+    width: 100%;
+    padding-left: 15%;
+    padding-top: 2%;
+    padding-right: 25%;
+}
+
+#questionPosition{
+    position: relative;
+}
+
+#nextButton{
+    float: right;
+    /* border-radius: 20%;
+    /* margin: 4px 2px; */
+    /* padding: 5px;
+    width: 60px;  */
+}
+
+#previousButton{
+    float: right;
+    margin-right: 10px;
+}
+
+#buttonDiv{
+    padding-top: 10px;
+}
+
+.questionDiv{
+    color: #0077C6;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    overflow: hidden;
+}
+
+#questionString{
+    font-size: 20px;;
+}
+
+
+.divContainerLabel{
+    position: relative;
+    background-color: rgb(209, 199, 199);
+    border-right: 0.02px lightgrey solid;
+    
+}
