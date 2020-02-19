@@ -1,31 +1,84 @@
-.questionDiv{
+#new-app-title{
+    /* color: #0077C6;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    overflow: hidden; */
     color: #0077C6;
+    margin-top: 1%;
+    margin-left: 1%;
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+#sub-heading-div{
+    width: 97%;
+    margin-left: 50%;   
+    transform: translateX(-50%);
+    margin-top: -1%;
+}
+
+#sub-title-div{
+    background-color: #E8ECEF;
+    margin-top: -0.5% ;
+    border-radius: 5px;
+}
+
+#title-image{
+    margin-left: 1%;
+    padding-top: 1%;
+}
+
+#sub-title{
+    margin-left: 1%;
+    color: #0077C6;
+}
+
+.progress{
+    margin-top: 2%;
+}
+
+#questionDiv{
+    color: grey;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     overflow: hidden;
+    margin-left: 10%;
 }
 
-#questionString{
-    font-size: 20px;;
-}
-
-#options{
-    text-indent: 30px;
-    font-size: 16px;
-}
-
-#textarea{
-    width: 600px;
-    height: 75px;
-    /* border: none; */
-    /* border-collapse: separate; */
-    /* padding: 5px; */
-    padding-top: -20px;
+#option-type{
+    margin-left: 5%;
 }
 
 #textAreaDiv{
-    height: 120px;
-    width: 600px;
+    width: 70% ;
 }
+
+#previousButton{
+    float: right;
+    margin-right: 10px;
+}
+
+#nextButton{
+    float: right;
+}
+
+/* #questionString{
+    font-size: 20px;;
+} */
+
+/* #options{
+    text-indent: 30px;
+    font-size: 16px;
+} */
+
+/* #textarea{ */
+    /* width: 600px;
+    height: 75px; */
+    /* border: none; */
+    /* border-collapse: separate; */
+    /* padding: 5px; */
+    /* padding-top: -20px; */
+/* } */
+
+
 
 /* #nextButton{
     float: right;
@@ -38,40 +91,36 @@
 
 
 
-#question-content{
+/* #question-content{
     position: relative;
     width: 100%;
     padding-left: 15%;
     padding-top: 2%;
     padding-right: 25%;
-}
+} */
 
-#questionPosition{
+/* #questionPosition{
     position: relative;
-}
+} */
 
-#nextButton{
-    float: right;
+/* #nextButton{
+    float: right; */
     /* border-radius: 20%;
     /* margin: 4px 2px; */
     /* padding: 5px;
     width: 60px;  */
-}
+/* } */
 
-#previousButton{
+/* #previousButton{
     float: right;
     margin-right: 10px;
-}
+} */
 
-#buttonDiv{
+/* #buttonDiv{
     padding-top: 10px;
 }
 
-.questionDiv{
-    color: #0077C6;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    overflow: hidden;
-}
+
 
 #questionString{
     font-size: 20px;;
@@ -83,4 +132,4 @@
     background-color: rgb(209, 199, 199);
     border-right: 0.02px lightgrey solid;
     
-}
+} */

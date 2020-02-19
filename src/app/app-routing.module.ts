@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { QuestionComponent } from './questionnaire/questionnaire.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import {MyAppsComponent} from './my-apps/my-apps.component'
 import {MyExceptionsComponent} from './my-exceptions/my-exceptions.component'
 
 const routes: Routes = [
   {path:'my-apps', component: MyAppsComponent},
-  {path:'new-app-questionnaire', component: QuestionComponent},
+  {path:'new-app-questionnaire', component: QuestionnaireComponent},
   {path:'my-exceptions', component: MyExceptionsComponent}
 ];
 
