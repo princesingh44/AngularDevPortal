@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { Question} from './models/question.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { HttpClient } from '@angular/common/http'
@@ -12,10 +12,10 @@ export class QuestionnaireComponent implements OnInit {
 
   @Input('question') question: Question;
 
-  
+  prevQuestion: Question;
   qCheckbox = [];
   iterator: number;
-  radioValue: string;
+  radioValue: any;
   show: boolean;
   comments: string;
   raiseError: boolean;
@@ -24,10 +24,14 @@ export class QuestionnaireComponent implements OnInit {
   userText: string;
   toggled: any;
   progressBarWidth: number;
-
+  recommendation: any;
+  technology: any;
+  showRecommendation: boolean;
+  // answerChoiceType : String;
 
   constructor(private http: HttpClient){
     this.iterator = 1;
+    this.question = new Question();
     
     this.radioValue = ""
     this.show = false;
@@ -36,6 +40,7 @@ export class QuestionnaireComponent implements OnInit {
     this.userText = "";
     this.clearRadios();
     this.progressBarWidth = 10;
+    this.showRecommendation = false;
 
 
     // this.question = new QuestionDetails();
@@ -80,6 +85,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   showRecommendationPage(){
+    this.showRecommendation = true;
     let obs: any;
     let body: any;
     
@@ -97,11 +103,11 @@ export class QuestionnaireComponent implements OnInit {
           "componentName": "Security"
         }
       ];
-    /*this.recommendation =  this.http.post("https://demo9790040.mockable.io/getRecommendation",body);
+    this.recommendation =  this.http.post("https://demo9790040.mockable.io/getRecommendation",body);
     this.recommendation.subscribe((response: any) => {
       this.technology = response;
       console.log("recommendation response is " + response.Technology.WebUI);
-    });*/
+    });
   }
 
   postResponse() {
@@ -121,6 +127,7 @@ export class QuestionnaireComponent implements OnInit {
     obs.subscribe((response: any) => {
       console.log("the response is " + response);
       this.question = response;
+      
       console.log("questionID: " + this.question.questionId);
       console.log("questionText: " + this.question.questionText);
       console.log("questionType:" + this.question.questionType);
@@ -137,7 +144,8 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   radioChangeHandler(event: any) {
-    console.log("radio button selected is " + event.target.value)
+    console.log("radio button selected is ")
+    console.log(event.target.value)
     this.radioValue = event.target.value;
   }
 
@@ -179,17 +187,32 @@ export class QuestionnaireComponent implements OnInit {
       console.log("inside else")
       obs = this.http.get('http://localhost:8000/app/question' + this.iterator);
     }*/
+    this.prevQuestion = this.question;
 
-    obs = this.http.post("http://localhost:3000/next/architecture?appId=123",this.question)
+    obs = this.http.post("http://localhost:3000/next/architecture?appId=123",this.buildNextQuestionRequest(this.question))
 
     
     obs.subscribe((response: any) => {
     this.question = response;
     console.log("value of iterator: " + this.iterator)
     console.log("iterator: " + this.iterator + "    questionNumber: " + this.question.questionId    )
-    this.clearFields();
+    //console.log(response);
+    console.log(this.question);
+    //ApplicationRef.tick()
+    //this.ref.detectChanges();
+    //IDetectorRef.detectChanges()
+    //this.clearFields();
     });
   }
+
+  buildNextQuestionRequest(resp : Question) : any{
+    if(this.radioValue != ""){console.log("test111");
+    resp.answer.answerChoice = [];
+    resp.answer.answerChoice.push(this.radioValue);
+    }
+    return resp;
+  }
+
 
   onNextClick(){
 

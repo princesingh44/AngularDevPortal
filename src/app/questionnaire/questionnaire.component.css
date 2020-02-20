@@ -146,6 +146,11 @@
     width: 200px;
 }
 
+#submit-button{
+    margin-left: 50%;
+    transform: translateX(-50%)
+}
+
 
 /* #questionString{
     font-size: 20px;;
