@@ -60,6 +60,93 @@
     float: right;
 }
 
+#recommendation-page{
+    margin-left: 5%;
+    margin-top: 2%;
+    color: grey;
+}
+
+#tech-stack{
+    margin-left: 30%;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+}
+
+#second-column{
+    margin-left: 10%;
+}
+
+#sql{
+    margin-top: 20%;
+}
+
+#language{
+    margin-top: 20%;
+}
+
+#recommendation-button-div{
+    margin-top: 10%;
+    margin-right: 5%;
+    float: right;
+    display: flex;
+    flex-direction: row;
+}
+
+#accept-proceed-button{
+    margin-right: 5%;
+    width: 200px;
+}
+
+#request-change-button{
+    margin-right: 5%;
+    width: 200px;
+}
+
+#recommendation-page{
+    margin-left: 5%;
+    margin-top: 2%;
+    color: grey;
+}
+
+#tech-stack{
+    margin-left: 30%;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+}
+
+#second-column{
+    margin-left: 10%;
+}
+
+#sql{
+    margin-top: 20%;
+}
+
+#language{
+    margin-top: 20%;
+}
+
+#recommendation-button-div{
+    margin-top: 10%;
+    margin-right: 5%;
+    float: right;
+    display: flex;
+    flex-direction: row;
+}
+
+#accept-proceed-button{
+    margin-right: 5%;
+    width: 200px;
+}
+
+#request-change-button{
+    margin-right: 5%;
+    width: 200px;
+}
+
+
 /* #questionString{
     font-size: 20px;;
 } */

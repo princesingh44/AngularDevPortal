@@ -47,13 +47,13 @@ export class QuestionnaireService {
 
     let answer = new Answer();
     answer.answerChoiceType = "checkbox"
-    let answerChoices = ["Web Service application", "Mobile application" , "UI application"]
-    answer.answerChoice = answerChoices
+    //let answerChoices = [{"optionText":"Web Service application"}, "Mobile application" , "UI application"]
+    //answer.answerChoice = answerChoices
 
     let answers: Array<Answer> = [];
     answers.push(answer);
 
-    question.answer = answers;
+    question.answer = answer;
     return question;
   }
 

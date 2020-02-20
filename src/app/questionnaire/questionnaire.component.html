@@ -8,6 +8,7 @@
         <label id="sub-title">New App Questionnaire</label>
       </div>
     </div>
+
     <div class="progress">
       <div id="progress-bar-style" class="progress-bar" role="progressbar"  [style.width]="(progressBarWidth)*100 + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
@@ -17,30 +18,30 @@
         <p>{{ question.questionId }}.  {{ question.questionText }}</p>
       </div>
 
-      <div id="option-type" *ngIf='question.answer[0].answerChoiceType != "text"'>
-        <div *ngFor="let option of question.answer[0].answerChoice; index as i" id="options">
-          <div *ngIf='question.answer[0].answerChoiceType === "checkbox"'>
+      <div id="option-type" *ngIf='question.answer.answerChoiceType != "free-text"'>
+        <div *ngFor="let option of question.answer.answerChoice; index as i" id="options">
+          <div *ngIf='question.answer.answerChoiceType === "multi-choice-1"'>
             <p>
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="qBox" [checked]="aSelectedCheckbox[i]" (change)="checkBox(i)">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="qBox" [checked]="qCheckbox[i]" (change)="checkBox(i)">
               <label class="form-check-label" for="defaultCheck1">
-                {{ option }}
+                {{ option.optionText }}
               </label>
             </p>
           </div>
-          <div *ngIf='question.answer[0].answerChoiceType === "radio"'>
+          <div *ngIf='(question.questionOptionType === "multi-choice" || question.questionOptionType === "single-choice")'>
             <p>
               <input class="form-check-input" (change)="radioChangeHandler($event)" type="radio" name="yesOrNo" id="exampleRadios1" value={{option}}>
               <label class="form-check-label" for="exampleRadios1">
-                {{option}}
+                {{option.optionText}}
               </label>
             </p>
           </div>
         </div>
       </div>
 
-      <div *ngIf='question.answer[0].answerChoiceType === "text"'>
+      <div *ngIf='question.answer.answerChoiceType=== "free-text"'>
         <p>
-          <input class="form-control" type="text" [(ngModel)]="userText" placeholder="Please enter a number">
+          <input class="form-control" type="text" [(ngModel)]="userText" placeholder="Please enter an answer">
         </p>
       </div>
 
@@ -59,10 +60,51 @@
           <button id="previousButton" (click)="onPreviousClick()" [disabled]="question.questionId === 1" type="button" class="btn btn-primary">Previous</button>
         </div>
       </div>
-    </div>
+    </div> 
+
+    <!-- Recommendation page -->
+
+    <!-- <div id="recommendation-page">
+      <h5>Recommended Technology Stack</h5>
+      <label>Based on your responses we have come up with the following recommended technology stack:</label>
+
+      <div id="tech-stack">
+        <div id="first-column">
+          <div id="web-ui">
+            <h6>Web UI</h6>
+            <label>{{ technology.Technology.WebUI }}</label>
+          </div>
+          <div id="sql">
+            <h6>SQL</h6>
+            <label>{{ technology.Technology.SQL }}</label>
+          </div>
+        </div>
+        
+        <div id="second-column">
+          <div id="nosql">
+            <h6>NOSQL</h6>
+            <label>{{ technology.Technology.NOSQL }}</label>
+          </div>
+          <div id="language">
+            <h6>Language</h6>
+            <label>{{ technology.Technology.language }}</label>
+          </div>
+        </div>      
+      </div>
+
+      <div id="recommendation-button-div">
+        <button id="accept-proceed-button" type="button" class="btn btn-primary">Accept & Proceed</button>
+        <button id="request-change-button" type="button" class="btn btn-primary">Request Change</button>
+      </div>
+
+    </div> -->
+
   </div>
-</div>   
-  <!-- <div id="questionPosition">
+</div>
+  
+
+
+<!-- <div id="questionPosition">
     
     <div class="questionDiv">
       <div id="questionString">

@@ -4,6 +4,6 @@ export class Question {
     questionText: string;
     lastQuestion: Boolean;
     questionType: String;
-    answer: Answer[];
+    answer: Answer;
     
 }
