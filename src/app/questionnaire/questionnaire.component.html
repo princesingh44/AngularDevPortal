@@ -40,9 +40,9 @@
           </div>
         </div>
   
-        <div *ngIf="question.answer.answerChoiceType === 'free-text'">
+        <div id="textAreaDiv" *ngIf="question.answer.answerChoiceType === 'free-text'">
           <p>
-            <input class="form-control" type="text" [(ngModel)]="userText" placeholder="Please enter an answer">
+            <input class="form-control" type="text" [(ngModel)]="userText" placeholder="Please enter an answer" >
           </p>
         </div>
   

@@ -111,7 +111,7 @@ export class QuestionnaireComponent implements OnInit {
     this.recommendation.subscribe((response: any) => {
       this.technology = response;
       console.log("recommendation response is " + response.Technology.WebUI);
-    },(err) => this.setError(err.message));
+    },(err) => this.setError("Error while calling endpoint"));
   }
 
   postResponse() {
@@ -209,7 +209,7 @@ export class QuestionnaireComponent implements OnInit {
     //this.ref.detectChanges();
     //IDetectorRef.detectChanges()
     //this.clearFields();
-    },(err) => this.setError(err.message));
+    },(err) => this.setError("Error while calling endpoint"));
   }
 
   buildNextQuestionRequest(resp : Question) : any{
@@ -227,7 +227,7 @@ export class QuestionnaireComponent implements OnInit {
 
   onNextClick(){
 
-    this.progressBarWidth = this.iterator / 5;
+    this.progressBarWidth = this.iterator / 4;
     let acs = this.question.answer.answerChoiceType;
     if ((acs === "multi-choice" || acs === "single-choice") ) {
       if (this.radioValue === "") {
@@ -305,7 +305,7 @@ export class QuestionnaireComponent implements OnInit {
     if (this.iterator >= 0) {
       this.iterator -= 1;
     }
-    this.progressBarWidth = (this.iterator - 1) / 5;
+    this.progressBarWidth = (this.iterator - 1) / 4;
 
     var obs : any;
     if(this.iterator === 1){
@@ -318,7 +318,7 @@ export class QuestionnaireComponent implements OnInit {
     obs.subscribe((response: any) => {
       this.question = response;
       console.log("the prevoius response is " , response);
-    },(err) => this.setError(err.message))
+    },(err) => this.setError("Error while calling endpoint"));
   }
   
   handleError(error: HttpErrorResponse){
