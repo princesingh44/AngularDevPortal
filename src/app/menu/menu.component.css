@@ -1,0 +1,35 @@
+#divContainer{
+    position: relative;
+    background-color: #F8F8F8;
+    border-right: 0.02px lightgrey solid;
+    height: 100vh;
+    /* display: inline-block;
+    position: relative */
+}
+
+.zero-space{
+    margin: 0px;
+    margin-left: 10px;
+}
+
+.menu-style{
+    color:#0077C6;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0.02px lightgrey solid;
+}
+
+.menu-style:hover{
+    background-color: lightgrey;
+    cursor: pointer;
+}
+
+/* #sub-container{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #F8F8F8;
+} */

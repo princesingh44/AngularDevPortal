@@ -1,0 +1,96 @@
+#divPositioner {
+    display: flex; 
+    flex-direction: row;  
+}
+
+#app-menu{
+    height: 100vh;
+    width: 20%;
+}
+
+#app-question{
+    position: relative;
+    width: 80%;
+    /* background-color: lightskyblue; */
+}
+
+#app-logo{
+    position: relative;
+    padding-top: 2%;
+}
+
+#question-content{
+    position: relative;
+    width: 100%;
+    padding-left: 15%;
+    padding-top: 2%;
+    padding-right: 25%;
+}
+
+#questionPosition{
+    position: relative;
+}
+
+#nextButton{
+    float: right;
+    /* border-radius: 20%;
+    /* margin: 4px 2px; */
+    /* padding: 5px;
+    width: 60px;  */
+}
+
+#previousButton{
+    float: right;
+    margin-right: 10px;
+}
+
+#buttonDiv{
+    padding-top: 10px;
+}
+
+.questionDiv{
+    color: #0077C6;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    overflow: hidden;
+}
+
+#questionString{
+    font-size: 20px;;
+}
+
+#options{
+    text-indent: 30px;
+    font-size: 16px;
+}
+
+#textarea{
+    width: 100%;
+    height: 75px;
+    /* border: none; */
+    /* border-collapse: separate; */
+    /* padding: 5px; */
+    padding-top: -20px;
+    resize: none;
+}
+
+textarea {
+    resize: none;
+}
+
+#textAreaDiv{
+    height: 120px;
+    width: 100%;
+    resize: none;
+}
+
+#errorMessageDiv {
+    text-align: center;
+}
+
+#header{
+    padding-left: 10px;
+    padding-top: 10px;
+    background-color: #F8F8F8;
+    border: 0.02px lightgrey solid;
+    color: #0077C6;
+}
