@@ -47,41 +47,6 @@ export class QuestionnaireComponent implements OnInit {
     this.questions = [];
     
 
-    // this.question = new QuestionDetails();
-    // this.question.questionId = "1";
-    // this.question.questionText = "How will users access your app?";
-    // this.question.questionOptionType = "checkbox";
-
-    // let answerChoices: Array<AnswerChoice> = [];
-    // let answerChoice = new AnswerChoice();
-    // answerChoice.optionText = "Web Service application";
-    // answerChoice.answerId = "a1";
-    // //answerChoices[0] = answerChoice;
-    // answerChoices.push(answerChoice);
-
-
-    // answerChoice = new AnswerChoice();
-    // answerChoice.optionText = "Mobile application";
-    // answerChoice.answerId = "a2";
-    // //answerChoices[1] = answerChoice;
-    // answerChoices.push(answerChoice);
-
-    // answerChoice = new AnswerChoice();
-    // answerChoice.optionText = "UI application";
-    // answerChoice.answerId = "a3";
-    // answerChoices.push(answerChoice);
-    
-    // let answer = new Answer();
-    // answer.answerChoice = answerChoices;
-
-    // let answers: Array<Answer> = [];
-    // answers.push(answer);
-
-    // this.question.answer = answers;
-    
-    
-
-    // this.postResponse();
    }
 
   ngOnInit(){
@@ -137,8 +102,7 @@ export class QuestionnaireComponent implements OnInit {
       console.log("questionID: " + this.question.questionId);
       console.log("questionText: " + this.question.questionText);
       console.log("questionType:" + this.question.questionType);
-      //console.log("options: " + this.question.answer.answerChoiceType);
-      //console.log("answer options: " + this.question.answer.answerChoice);
+      
     },(err) => this.setError(err.message));
 
     // obs.subscribe((response: QuestionDetails) => {
@@ -201,10 +165,14 @@ export class QuestionnaireComponent implements OnInit {
     obs.subscribe((response: any) => {
     this.question = response;
     this.questions.push(response);
-    console.log("value of iterator: " + this.iterator)
+    
     console.log("iterator: " + this.iterator + "    questionNumber: " + this.question.questionId    )
     //console.log(response);
     console.log(this.question);
+    
+    if (response.answer.answerChoiceType === "free-text" || response.answer.answerChoiceType === "numeric") {
+      this.userText = "";
+    }
     //ApplicationRef.tick()
     //this.ref.detectChanges();
     //IDetectorRef.detectChanges()
@@ -213,21 +181,27 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   buildNextQuestionRequest(resp : Question) : any{
-    console.log("3333test");
+    
     console.log(this.radioValue);
-    /*if(this.radioValue !== ""){
-      console.log("test111");
-    resp.answer.answerChoice = [];
-    let anchoice = {"optionText":this.radioValue};
-    resp.answer.answerChoice.push(anchoice);
-    }*/
+    if(this.radioValue !== ""){
+      
+      resp.answer.answerChoice = [];
+      let anchoice = {"optionText":this.radioValue};
+      resp.answer.answerChoice.push(anchoice);
+    }else if(this.userText !== ""){
+        
+      resp.answer.answerChoice = [];
+      let anchoice = {"optionText":this.userText};
+      resp.answer.answerChoice.push(anchoice);
+      
+    }
     return resp;
   }
 
 
   onNextClick(){
 
-    this.progressBarWidth = this.iterator / 4;
+    this.progressBarWidth = this.iterator / 8;
     let acs = this.question.answer.answerChoiceType;
     if ((acs === "multi-choice" || acs === "single-choice") ) {
       if (this.radioValue === "") {
@@ -282,7 +256,7 @@ export class QuestionnaireComponent implements OnInit {
     //   console.log("checkbox is " + this.isChecked);
 
     }
-     else if (this.question.answer.answerChoiceType === "free-text") {
+     else if (this.question.answer.answerChoiceType === "free-text" || this.question.answer.answerChoiceType === "numeric") {
 
       if (this.userText === "") {
         this.setError("Please enter a number!");
@@ -305,7 +279,7 @@ export class QuestionnaireComponent implements OnInit {
     if (this.iterator >= 0) {
       this.iterator -= 1;
     }
-    this.progressBarWidth = (this.iterator - 1) / 4;
+    this.progressBarWidth = (this.iterator - 1) / 8;
 
     var obs : any;
     if(this.iterator === 1){

@@ -14,6 +14,9 @@
         <div id="progress-bar-style" class="progress-bar" role="progressbar"  [style.width]="(progressBarWidth)*100 + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
       <br>
+      <div id = "errorMessageDiv" class="alert alert-danger" role="alert" *ngIf="raiseError">
+        {{ errorMessage }}
+      </div>
       <div id="questionDiv">
         <div id="questionString">
           <p>{{ question.questionId }}.  {{ question.questionText }}</p>
@@ -40,15 +43,13 @@
           </div>
         </div>
   
-        <div id="textAreaDiv" *ngIf="question.answer.answerChoiceType === 'free-text'">
+        <div id="textAreaDiv" *ngIf='(question.answer.answerChoiceType === "free-text" || question.answer.answerChoiceType === "numeric")'>
           <p>
             <input class="form-control" type="text" [(ngModel)]="userText" placeholder="Please enter an answer" >
           </p>
         </div>
   
-        <div id = "errorMessageDiv" class="alert alert-danger" role="alert" *ngIf="raiseError">
-          {{ errorMessage }}
-        </div>
+        
   
         <div id="textAreaDiv">
           <div class="form-group">
@@ -58,7 +59,7 @@
   
           <div id="buttonDiv">
             <button id="nextButton" (click)="onNextClick()" [disabled]='question.lastQuestion === true' type="button" class="btn btn-primary">Next</button>
-            <button id="previousButton" (click)="onPreviousClick()" [disabled]='question.questionId === "q1"' type="button" class="btn btn-primary">Previous</button>
+            <!--<button id="previousButton" (click)="onPreviousClick()" [disabled]='question.questionId === "q1"' type="button" class="btn btn-primary">Previous</button>-->
             <button id="submit-button" (click)="showRecommendationPage()" *ngIf='question.lastQuestion === true' type="button" class="btn btn-primary">Submit</button>
           </div>
         </div>
