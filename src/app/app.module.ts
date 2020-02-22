@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+/*import { QuestionnaireComponent } from './questionnaire/questionnaire.component';*/
 import { MenuComponent } from './menu/menu.component';
 import { AnthemLogoComponent } from './anthem-logo/anthem-logo.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,17 +17,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MyExceptionsComponent } from './my-exceptions/my-exceptions.component';
+//import { MyExceptionsComponent } from './my-exceptions/my-exceptions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuestionnaireComponent,
+   // QuestionnaireComponent,
     MenuComponent,
     AnthemLogoComponent,
     LandingPageComponent,
     MyAppsComponent,
-    MyExceptionsComponent
+  //  MyExceptionsComponent
   ],
   imports: [
     BrowserModule,
