@@ -1,0 +1,112 @@
+#my-apps-title{
+    color: #0077C6;
+    margin-top: 1%;
+    margin-left: 1%;
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+#sub-heading-div{
+    width: 97%;
+    margin-left: 50%;  
+    transform: translateX(-50%);
+    margin-top: -1%;
+}
+
+#sub-title-div{
+    background-color: #E8ECEF;
+    margin-top: -0.5% ;
+    border-radius: 5px;
+}
+
+#title-image{
+    margin-left: 1%;
+    padding-top: 1%;
+}
+
+#sub-title{
+    margin-left: 1%;
+    color: #0077C6;
+}
+
+#filter-section{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5%;
+}
+
+.dropdown-list{
+    margin-left: 2%;
+    background-color: white;
+}
+
+#dropdownMenuButton{
+    border: 1px solid #E8ECEF !important;
+}
+
+#filter-label{
+    font-size: 18px;
+}
+
+#clear-filter-button{
+    border: 1px solid #E8ECEF !important;
+    margin-left: 5%;
+}
+
+#table-div{
+    margin-top: 3%
+}
+
+#table-id{
+    border-radius: 5px;
+}
+
+thead{
+    background-color: #0077C6;
+    color: white;
+    font-weight: normal;
+}
+
+td{
+    border: 1px solid #E8ECEF !important;
+    color: grey;
+}
+
+.grey-row{
+    background-color: #E8ECEF;
+}
+
+.approved{
+    color: green;
+}
+
+.in-review{
+    color: yellow;
+}
+
+.denied{
+    color: red;
+}
+
+
+#splitter{
+    display: flex;
+    flex-direction: row;
+    /* background-color: lightgresen; */
+}
+
+#app1-details{
+    margin-left: 1%;
+}
+
+#second-column{
+    margin-left:10%;
+}
+
+#first-row:hover, #second-row:hover, #third-row:hover, #fourth-row:hover{
+    background-color: lightgray;
+}
+
+#first-row-detail{
+    padding: 0;
+}
