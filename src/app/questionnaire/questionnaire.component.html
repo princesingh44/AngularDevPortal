@@ -24,15 +24,15 @@
   
         <div id="option-type" *ngIf='question.answer.answerChoiceType !== "free-text"'>
           <div *ngFor="let option of question.answer.answerChoice; index as i" id="options">
-            <div *ngIf='question.answer.answerChoiceType === "multi-choice-1"'>
+            <div *ngIf='question.answer.answerChoiceType === "multi-choice"'>
               <p>
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="qBox" [checked]="qCheckbox[i]" (change)="checkBox(i)">
+                <input class="form-check-input" type="checkbox" value="{{option.optionText}}" id="defaultCheck1" [checked]="qCheckbox[i]" (change)="checkBox(i)">
                 <label class="form-check-label" for="defaultCheck1">
                   {{ option.optionText }}
                 </label>
               </p>
             </div>
-            <div *ngIf='(question.answer.answerChoiceType === "multi-choice" || question.answer.answerChoiceType === "single-choice")'>
+            <div *ngIf='question.answer.answerChoiceType === "single-choice"'>
               <p>
                 <input class="form-check-input" (change)="radioChangeHandler($event)" type="radio" name="yesOrNo" id="exampleRadios1" value={{option.optionText}}>
                 <label class="form-check-label" for="exampleRadios1">

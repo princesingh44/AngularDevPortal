@@ -30,6 +30,7 @@ export class QuestionnaireComponent implements OnInit {
   recommendation: any;
   technology: any;
   showRecommendation: boolean;
+  checkBoxValues: any[];
   // answerChoiceType : String;
 
   constructor(private http: HttpClient){
@@ -45,8 +46,7 @@ export class QuestionnaireComponent implements OnInit {
     this.progressBarWidth = 0;
     this.showRecommendation = false;
     this.questions = [];
-    
-
+    this.checkBoxValues = [];
    }
 
   ngOnInit(){
@@ -79,45 +79,25 @@ export class QuestionnaireComponent implements OnInit {
     },(err) => this.setError("Error while calling endpoint"));
   }
 
-  postResponse() {
-    let obs: any;
-    let body = {"appId":123}
-    obs = this.http.post("http://localhost:3000/next/architecture?appId=123",this.question)
-    obs.subscribe((response: any) => {
-      console.log("post response is " + response);
-    });
-  }
-
   getResponse(){
     let obs:any;
     // let questionResponse: QuestionDetails;
-    obs = this.http.get("http://localhost:3000/first/architecture?appId=123");
+    obs = this.http.get("http://localhost:3400/v1/questionnaire/first/architecture?appId=123");
 
     obs.subscribe((response: any) => {
-      console.log("the response is " , response);
+      // console.log("the response is " , response);
       this.question = response;
       this.prevRequestQuestion = this.question;
       this.questions.push(this.question);
-
-      console.log("questionID: " + this.question.questionId);
-      console.log("questionText: " + this.question.questionText);
-      console.log("questionType:" + this.question.questionType);
       
     },(err) => this.setError(err.message));
-
-    // obs.subscribe((response: QuestionDetails) => {
-    //   this.question = response;
-    //   console.log("value of iterator: " + this.iterator)
-    //   console.log("iterator: " + this.iterator + "    questionNumber: " + this.question.questionId    )
-    //   this.clearFields();
-    //   });
   }
 
   radioChangeHandler(event: any) {
-    console.log("radio button selected is ")
-    console.log(event.target.value)
+    // console.log("radio button selected is ")
+    // console.log(event.target.value)
     this.radioValue = event.target.value;
-    console.log(this.radioValue)
+    // console.log(this.radioValue)
   }
 
   clearRadios() {
@@ -126,10 +106,25 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
 
+  onCheckBoxChange(event) {
+    if (event.target.checked){
+      this.checkBoxValues.push(event.target.value);
+    } else {
+      for (var i = 0; i < this.checkBoxValues.length; i++) {
+        if (this.checkBoxValues[i] === event.target.value) {
+          this.checkBoxValues.splice(i, 1);
+        }
+      }
+    }
+    console.log(this.checkBoxValues);
+    // this.question.answer.answerChoice = this.checkBoxValues;
+  }
+
   clearFields() {
     this.comments = "";
     this.userText = "";
     this.radioValue = "";
+    this.checkBoxValues = [];
   }
 
   checkBox(index: number) {
@@ -149,40 +144,27 @@ export class QuestionnaireComponent implements OnInit {
   callBackend() {
 
     let obs:any;
-    console.log("radioValue: " + this.radioValue);
+    // console.log("radioValue: " + this.radioValue);
     this.clearError();
-    /*if (this.question.questionId === "3" && this.radioValue === "Yes") {
-      console.log("inside if")
-      obs = this.http.get('http://localhost:8000/app/question' + this.iterator + "a");
-    } else {
-      console.log("inside else")
-      obs = this.http.get('http://localhost:8000/app/question' + this.iterator);
-    }*/
-    
-    obs = this.http.post("http://localhost:3000/next/architecture?appId=123",this.buildNextQuestionRequest(this.question))
+    obs = this.http.post("http://localhost:3400/v1/questionnaire/next/architecture?appId=123",this.buildNextQuestionRequest(this.question))
 
     
     obs.subscribe((response: any) => {
-    this.question = response;
-    this.questions.push(response);
-    
-    console.log("iterator: " + this.iterator + "    questionNumber: " + this.question.questionId    )
-    //console.log(response);
-    console.log(this.question);
-    
-    if (response.answer.answerChoiceType === "free-text" || response.answer.answerChoiceType === "numeric") {
-      this.userText = "";
-    }
-    //ApplicationRef.tick()
-    //this.ref.detectChanges();
-    //IDetectorRef.detectChanges()
-    //this.clearFields();
+      this.question = response;
+      this.questions.push(response);
+      this.clearFields();
+      
+      if (response.answer.answerChoiceType === "free-text" || response.answer.answerChoiceType === "numeric") {
+        this.userText = "";
+      }
+      if (response.answer.answerChoiceType === "multi-choice") {
+        this.qCheckbox = new Array(response.answer.answerChoice.length).fill(false);
+      }
     },(err) => this.setError("Error while calling endpoint"));
   }
 
   buildNextQuestionRequest(resp : Question) : any{
     
-    console.log(this.radioValue);
     if(this.radioValue !== ""){
       
       resp.answer.answerChoice = [];
@@ -193,7 +175,10 @@ export class QuestionnaireComponent implements OnInit {
       resp.answer.answerChoice = [];
       let anchoice = {"optionText":this.userText};
       resp.answer.answerChoice.push(anchoice);
-      
+
+    } else if (this.checkBoxValues.length !== 0) {
+      console.log(this.checkBoxValues)
+      resp.answer.answerChoice = this.checkBoxValues;
     }
     return resp;
   }
@@ -203,41 +188,35 @@ export class QuestionnaireComponent implements OnInit {
 
     this.progressBarWidth = this.iterator / 8;
     let acs = this.question.answer.answerChoiceType;
-    if ((acs === "multi-choice" || acs === "single-choice") ) {
-      if (this.radioValue === "") {
+    
+    if (acs === "multi-choice") {
+      console.log("qcheckbox: " + this.qCheckbox);
+      for (var i = 0; i < this.qCheckbox.length; i++) {
+        if (this.qCheckbox[i]) {
+          this.checkBoxValues.push({"optionText":this.question.answer.answerChoice[i].optionText});
+        }
+      }
+
+      if (this.checkBoxValues.length === 0) {
         this.setError("Please select an option to continue");
-      } else {
-      this.toggled = null;
-      //this.radioValue = "";
-        // this.clearError();
+      }
+      else {
+        // console.log("hello")
+        this.toggled = null;
         this.iterator += 1;
         this.callBackend();
       }
     }
 
-    else if ((acs === "multi-choice" || acs === "single-choice") && this.question.questionId === "3") {
-      if (this.radioValue === "Yes"){
-        this.callBackend();
-      
-      } else if (this.radioValue === "No") {
-        this.radioValue = "";
-        this.iterator += 1;
-        this.callBackend();
-      }
-      else if (this.radioValue === "NoSQL") {
-        this.radioValue = "";
-        this.iterator += 1;
-        this.callBackend();
-      }
-      else if (this.radioValue === "SQL") {
-        this.radioValue = "";
-        this.iterator += 1;
-        this.callBackend();
-      }
-      else {
+    if (acs === "single-choice") {
+      if (this.radioValue === "") {
         this.setError("Please select an option to continue");
+      } else {
+      this.toggled = null;
+        this.iterator += 1;
+        this.callBackend();
       }
-    } 
+    }
 
     else if (this.question.answer.answerChoiceType === "checkbox-1") {
       let selected = false;
@@ -252,17 +231,13 @@ export class QuestionnaireComponent implements OnInit {
         this.iterator += 1;
         this.callBackend();
       }
-    //   this.clearError();
-    //   console.log("checkbox is " + this.isChecked);
 
     }
      else if (this.question.answer.answerChoiceType === "free-text" || this.question.answer.answerChoiceType === "numeric") {
 
       if (this.userText === "") {
         this.setError("Please enter a number!");
-      } /*else if (isNaN(Number(this.userText))) {
-        this.setError("Only numbers are allowed!")
-      } */else {
+      } else {
         this.iterator += 1;
         this.callBackend();
       }
@@ -275,38 +250,27 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
 
-  onPreviousClick(){
-    if (this.iterator >= 0) {
-      this.iterator -= 1;
-    }
-    this.progressBarWidth = (this.iterator - 1) / 8;
+  // onPreviousClick(){
+  //   if (this.iterator >= 0) {
+  //     this.iterator -= 1;
+  //   }
+  //   this.progressBarWidth = (this.iterator - 1) / 8;
 
-    var obs : any;
-    if(this.iterator === 1){
-      obs = this.http.get("http://localhost:3000/first/architecture?appId=123");
-    }else{
-      obs = this.http.post("http://localhost:3000/next/architecture?appId=123",this.questions[this.extractQuestionNumber()-3]);
-    }
+  //   var obs : any;
+  //   if(this.iterator === 1){
+  //     obs = this.http.get("http://localhost:3000/first/architecture?appId=123");
+  //   }else{
+  //     obs = this.http.post("http://localhost:3000/next/architecture?appId=123",this.questions[this.extractQuestionNumber()-3]);
+  //   }
     
     
-    obs.subscribe((response: any) => {
-      this.question = response;
-      console.log("the prevoius response is " , response);
-    },(err) => this.setError("Error while calling endpoint"));
-  }
+  //   obs.subscribe((response: any) => {
+  //     this.question = response;
+  //     console.log("the prevoius response is " , response);
+  //   },(err) => this.setError("Error while calling endpoint"));
+  // }
   
   handleError(error: HttpErrorResponse){
     this.setError(error.message);
-    }
-  
-  extractQuestionNumber(): number{
-     let quesNumber: number;
-     let currQuesNumString = this.question.questionId.substring(1,2);
-     quesNumber = parseInt(currQuesNumString);
-     console.log("ques number: ", quesNumber);
- 
-     return quesNumber;
-   } 
-  
- 
+    } 
 }
