@@ -58,21 +58,25 @@ export class QuestionnaireComponent implements OnInit {
     let obs: any;
     let body: any;
     
-    body = [
-        {
-          "componentName": "SQL"
-        },
-        {
-          "componentName": "webUI"
-        },
-        {
-          "componentName": "NoSQL"
-        },
-        {
-          "componentName": "Security"
-        }
-      ];
-    this.recommendation =  this.http.post("https://demo9790040.mockable.io/getRecommendation",body);
+    body = {
+      "componentName": ["SQL","NOSQL","Security","language", "WebUI"]
+    }
+
+    // body = [
+    //     {
+    //       "componentName": "SQL"
+    //     },
+    //     {
+    //       "componentName": "webUI"
+    //     },
+    //     {
+    //       "componentName": "NoSQL"
+    //     },
+    //     {
+    //       "componentName": "Security"
+    //     }
+    //   ];
+    this.recommendation =  this.http.post("http://a29c7a33b58be11eaa27e0a668647ca6-1545753706.us-east-2.elb.amazonaws.com:9005/getRecommendation",body);
     this.recommendation.subscribe((response: any) => {
       this.technology = response;
       console.log("technology")
@@ -84,7 +88,9 @@ export class QuestionnaireComponent implements OnInit {
   getResponse(){
     let obs:any;
     // let questionResponse: QuestionDetails;
-    obs = this.http.get("http://localhost:3400/v1/questionnaire/first/architecture?appId=123");
+    let url: string = "http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/first/architecture?appId=123 ";
+    console.log("url: " + url)
+    obs = this.http.get(url);
 
     obs.subscribe((response: any) => {
       // console.log("the response is " , response);
@@ -150,7 +156,7 @@ export class QuestionnaireComponent implements OnInit {
     let obs:any;
     // console.log("radioValue: " + this.radioValue);
     this.clearError();    
-    obs = this.http.post("http://localhost:3400/v1/questionnaire/next/architecture?appId=123",this.buildNextQuestionRequest(this.question))
+    obs = this.http.post("http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/next/architecture?appId=123",this.buildNextQuestionRequest(this.question))
 
     obs.subscribe((response: any) => {
       this.question = response;
