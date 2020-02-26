@@ -34,7 +34,7 @@ export class QuestionnaireComponent implements OnInit {
   // answerChoiceType : String;
 
   constructor(private http: HttpClient){
-    this.iterator = 1;
+    this.iterator = 0;
     this.question = new Question();
     
     this.radioValue = ""
@@ -58,21 +58,25 @@ export class QuestionnaireComponent implements OnInit {
     let obs: any;
     let body: any;
     
-    body = [
-        {
-          "componentName": "SQL"
-        },
-        {
-          "componentName": "webUI"
-        },
-        {
-          "componentName": "NoSQL"
-        },
-        {
-          "componentName": "Security"
-        }
-      ];
-    this.recommendation =  this.http.post("https://demo9790040.mockable.io/getRecommendation",body);
+    body = {
+      "componentName": ["SQL","NOSQL","Security","language", "WebUI"]
+    }
+
+    // body = [
+    //     {
+    //       "componentName": "SQL"
+    //     },
+    //     {
+    //       "componentName": "webUI"
+    //     },
+    //     {
+    //       "componentName": "NoSQL"
+    //     },
+    //     {
+    //       "componentName": "Security"
+    //     }
+    //   ];
+    this.recommendation =  this.http.post("http://a29c7a33b58be11eaa27e0a668647ca6-1545753706.us-east-2.elb.amazonaws.com:9005/getRecommendation",body);
     this.recommendation.subscribe((response: any) => {
       this.technology = response;
       console.log("technology")
@@ -84,7 +88,9 @@ export class QuestionnaireComponent implements OnInit {
   getResponse(){
     let obs:any;
     // let questionResponse: QuestionDetails;
-    obs = this.http.get("http://localhost:3400/v1/questionnaire/first/architecture?appId=123");
+    let url: string = "http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/first/architecture?appId=123 ";
+    console.log("url: " + url)
+    obs = this.http.get(url);
 
     obs.subscribe((response: any) => {
       // console.log("the response is " , response);
@@ -146,10 +152,11 @@ export class QuestionnaireComponent implements OnInit {
 
   callBackend() {
 
+    this.progressBarWidth = this.iterator / 8;
     let obs:any;
     // console.log("radioValue: " + this.radioValue);
     this.clearError();    
-    obs = this.http.post("http://localhost:3400/v1/questionnaire/next/architecture?appId=123",this.buildNextQuestionRequest(this.question))
+    obs = this.http.post("http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/next/architecture?appId=123",this.buildNextQuestionRequest(this.question))
 
     obs.subscribe((response: any) => {
       this.question = response;
@@ -187,12 +194,12 @@ export class QuestionnaireComponent implements OnInit {
 
   onNextClick(){
 
-    this.progressBarWidth = this.iterator / 8;
     let acs = this.question.answer.answerChoiceType;
 
     if (acs === "multi-choice") {
       console.log("qcheckbox: " + this.qCheckbox);
       for (var i = 0; i < this.qCheckbox.length; i++) {
+        console.log(this.qCheckbox[i]);
         if (this.qCheckbox[i]) {
           this.checkBoxValues.push({"optionText":this.question.answer.answerChoice[i].optionText});
         }
@@ -209,46 +216,39 @@ export class QuestionnaireComponent implements OnInit {
       }
     }
 
-    if (acs === "single-choice") {
+    else if (acs === "single-choice") {
       if (this.radioValue === "") {
         this.setError("Please select an option to continue");
       } else {
-      this.toggled = null;
+        this.toggled = null;
         this.iterator += 1;
         this.callBackend();
       }
     }
 
-    else if (this.question.answer.answerChoiceType === "checkbox-1") {
-      let selected = false;
-      for (let i = 0; i < 3; i++) {
-        if (!selected)
-          selected = this.qCheckbox[i];
-      }
-      if (!selected) {
-        this.setError("Please select at least one option to continue");
+    else if (acs === "free-text") {
+      if (this.userText === "") {
+        this.setError("Please enter a name for the app!");
       }
       else {
         this.iterator += 1;
         this.callBackend();
       }
-
     }
-     else if (this.question.answer.answerChoiceType === "free-text" || this.question.answer.answerChoiceType === "numeric") {
+
+    else if (acs === "numeric") {
 
       if (this.userText === "") {
         this.setError("Please enter a number!");
-      } else {
+      } 
+      else if (isNaN(Number(this.userText))/*/^\d+$/.test(this.userText)*/) {
+        this.setError("Please enter only numbers!");
+      }
+      else {
         this.iterator += 1;
         this.callBackend();
       }
-      console.log("user entered text " + this.userText);
-
-    } else {
-      this.radioValue = "";
-      this.iterator += 1;
-      this.callBackend();
-    }
+    } 
   }
 
   // onPreviousClick(){
