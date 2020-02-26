@@ -34,7 +34,7 @@ export class QuestionnaireComponent implements OnInit {
   // answerChoiceType : String;
 
   constructor(private http: HttpClient){
-    this.iterator = 1;
+    this.iterator = 0;
     this.question = new Question();
     
     this.radioValue = ""
@@ -146,6 +146,7 @@ export class QuestionnaireComponent implements OnInit {
 
   callBackend() {
 
+    this.progressBarWidth = this.iterator / 8;
     let obs:any;
     // console.log("radioValue: " + this.radioValue);
     this.clearError();    
@@ -187,12 +188,12 @@ export class QuestionnaireComponent implements OnInit {
 
   onNextClick(){
 
-    this.progressBarWidth = this.iterator / 8;
     let acs = this.question.answer.answerChoiceType;
 
     if (acs === "multi-choice") {
       console.log("qcheckbox: " + this.qCheckbox);
       for (var i = 0; i < this.qCheckbox.length; i++) {
+        console.log(this.qCheckbox[i]);
         if (this.qCheckbox[i]) {
           this.checkBoxValues.push({"optionText":this.question.answer.answerChoice[i].optionText});
         }
@@ -209,46 +210,39 @@ export class QuestionnaireComponent implements OnInit {
       }
     }
 
-    if (acs === "single-choice") {
+    else if (acs === "single-choice") {
       if (this.radioValue === "") {
         this.setError("Please select an option to continue");
       } else {
-      this.toggled = null;
+        this.toggled = null;
         this.iterator += 1;
         this.callBackend();
       }
     }
 
-    else if (this.question.answer.answerChoiceType === "checkbox-1") {
-      let selected = false;
-      for (let i = 0; i < 3; i++) {
-        if (!selected)
-          selected = this.qCheckbox[i];
-      }
-      if (!selected) {
-        this.setError("Please select at least one option to continue");
+    else if (acs === "free-text") {
+      if (this.userText === "") {
+        this.setError("Please enter a name for the app!");
       }
       else {
         this.iterator += 1;
         this.callBackend();
       }
-
     }
-     else if (this.question.answer.answerChoiceType === "free-text" || this.question.answer.answerChoiceType === "numeric") {
+
+    else if (acs === "numeric") {
 
       if (this.userText === "") {
         this.setError("Please enter a number!");
-      } else {
+      } 
+      else if (isNaN(Number(this.userText))/*/^\d+$/.test(this.userText)*/) {
+        this.setError("Please enter only numbers!");
+      }
+      else {
         this.iterator += 1;
         this.callBackend();
       }
-      console.log("user entered text " + this.userText);
-
-    } else {
-      this.radioValue = "";
-      this.iterator += 1;
-      this.callBackend();
-    }
+    } 
   }
 
   // onPreviousClick(){
