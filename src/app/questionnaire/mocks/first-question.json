@@ -1,0 +1,23 @@
+{
+    "questionId": "q1",
+    "questionText": "What is the type of application?",
+    "lastQuestion": false,
+    "questionType": "architecture",
+    "answer": {
+      "answerChoiceType": "multi-choice",
+      "answerChoice": [
+        {
+          "optionText": "Web Service application",
+          "answerId": "a1"
+        },
+        {
+          "optionText": "Mobile application",
+          "aid": "a2"
+        },
+        {
+          "optionText": "UI application",
+          "aid": "a3"
+        }
+      ]
+    }
+  }
