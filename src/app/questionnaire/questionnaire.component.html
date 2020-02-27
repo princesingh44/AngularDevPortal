@@ -69,34 +69,32 @@
 
     </div>
 
-    
-
     <!-- Recommendation page -->
 
     <div id="recommendation-page" *ngIf="showRecommendation === true">
       <h5>Recommended Technology Stack</h5>
       <label>Based on your responses we have come up with the following recommended technology stack:</label>
 
-      <div id="tech-stack">
+      <div id="tech-stack" *ngIf="tech_stack_loaded">
         <div id="first-column">
           <div id="web-ui">
             <h6>Web UI</h6>
-            <label>{{ technology.Technology.WebUI }}</label>
+            <label>{{ technology.webUI[0] }}</label>
           </div>
           <div id="sql">
             <h6>SQL</h6>
-            <label>{{ technology.Technology.SQL }}</label>
+            <label>{{ technology.sql[0] }}</label>
           </div>
         </div>
         
         <div id="second-column">
           <div id="nosql">
             <h6>NOSQL</h6>
-            <label>{{ technology.Technology.NOSQL }}</label>
+            <label>{{ technology.noSql[0] }}</label>
           </div>
           <div id="language">
             <h6>Language</h6>
-            <label>{{ technology.Technology.language }}</label>
+            <label>{{ technology.language[0] }}</label>
           </div>
         </div>      
       </div>
@@ -110,149 +108,3 @@
 
   </div>
 </div>
-  
-
-
-<!-- <div id="questionPosition">
-    
-    <div class="questionDiv">
-      <div id="questionString">
-        <p>{{ question.questionId }}.  {{ question.questionText }}</p>
-      </div>
-      <div *ngIf='question.questionOptionType != "text"'>
-        <div *ngFor="let option of question.answer[0].answerChoice; index as i" id="options">
-          <div *ngIf='question.questionOptionType === "checkbox"'>
-            <p>
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="qBox" [checked]="qCheckbox[i]" (change)="checkBox(i)">
-              <label class="form-check-label" for="defaultCheck1">
-                {{ option.optionText }}
-              </label>
-            </p>
-          </div>
-          <div *ngIf='question.questionOptionType === "radio"'>
-            <p>
-              <input class="form-check-input" (change)="radioChangeHandler($event)" type="radio" name="yesOrNo" id="exampleRadios1" value={{option}}>
-              <label class="form-check-label" for="exampleRadios1">
-                {{option.optionText}}
-              </label>
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      <div *ngIf='question.questionOptionType === "text"'>
-        <p>
-          <input class="form-control" type="text" [(ngModel)]="userText" placeholder="Please enter a number">
-        </p>
-      </div>
-
-      <div id = "errorMessageDiv" class="alert alert-danger" role="alert" *ngIf="raiseError">
-        {{ errorMessage }}
-      </div>
-
-      <div id="textAreaDiv">
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Additional Comments:</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" name="comments" type="text" [(ngModel)]="comments" rows="3"></textarea>
-        </div>
-      </div> 
-    </div>
-    <div id="buttonDiv">
-      <button id="nextButton" (click)="onNextClick()" type="button" class="btn btn-primary">Next</button>
-      <button id="previousButton" (click)="onPreviousClick()" [disabled]="question.questionId === 1" type="button" class="btn btn-primary">Previous</button>
-    </div>
-  </div>
-</div>  -->
-
-
-
-
-
-
-
-
-<!--
-    NewBack up
-  <div class="card" *ngIf="questionnaire">
-    <h3 class="card-header">{{questionnaire.name}}</h3>
-    <div class="clearfix">
-      <i class="mr-3 float-right">Created by {{questionnaire.submittedBy}} on {{questionnaire.date | date:'fullDate'}} at {{questionnaire.date | date:'mediumTime'}}</i>
-    </div>
-    <div class="card-body" *ngFor="let q of questions|async">
-      <p class="card-text">{{q.title}}</p>
-      <question-type [question]="q"
-        [readonly]="1"
-        [edit]="1"
-        [questionnaireId]="questionnaireId"
-        [qId]="q.id"></question-type>
-    </div>
-  </div>
-  <div class="float-left mt-2">
-      <button class="btn btn-outline-primary" (click)="addQuestion()">Add question</button>
-  </div>
-  -->
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-Previous Code
-<div class="questionDiv">
-    <div class="space space-component1 background-transparent">
-      <div class="space space-component col-md-12 background-transparent">
-        <h1 class="text-basic">New App Questionnaire</h1>
-      </div>
-      <div class="space space-component col-md-12 background-transparent">
-        <p class="text-basic paragraph">New  App Questionnaire</p>
-      </div>
-      <nb-progress-bar status="info" size="medium" value="66"></nb-progress-bar>
-    </div>
-  </div>
-
-<div class="questionDiv">
-    <div id="questionString">
-        <p>{{ question.questionNumber }}.  {{ question.questionString }}</p>
-    </div>
-    <div *ngIf='question.questionOptionType != "text"'>
-        <div *ngFor="let option of question.questionOptions" id="options">
-            <div *ngIf='question.questionOptionType === "checkbox"'>
-                <p><input type="checkbox">{{ option }}</p>
-            </div>
-            <div *ngIf='question.questionOptionType === "radio"'>
-                <p><input type="radio">{{ option }}</p>
-            </div>
-        </div>
-    </div>
-    
-    <div *ngIf='question.questionOptionType == "text"'>
-        <p><input type="text">
-    </div>
-    <div id="textAreaDiv">
-        <p>Additional Comments:</p>
-        <textarea id="textarea"></textarea>
-    </div> 
-</div> 
-
-
-
-<div class="slot">
-    <div class="space space-component1 background-transparent">
-      <div class="space space-component col-md-12 background-transparent">
-        <h1 class="text-basic">New App Questionnaire</h1>
-      </div>
-      <div class="space space-component col-md-12 background-transparent">
-        <p class="text-basic paragraph">New  App Questionnaire</p>
-      </div>
-      <nb-progress-bar status="info" size="medium" value="66"></nb-progress-bar>
-    </div>
-  </div>
-
--->
