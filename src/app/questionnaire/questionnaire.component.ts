@@ -81,7 +81,7 @@ export class QuestionnaireComponent implements OnInit {
 
   getResponse(){
     let obs:any;
-    var url: string = "http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/first/architecture?appId=123";
+    var url: string = "https://hlwybxzp9h.execute-api.us-east-1.amazonaws.com/portal-test/first/architecture?appId=123";
     
     // url = "http://localhost:3400/v1/questionnaire/first/architecture?appId=123"
     console.log("url: " + url)
@@ -147,7 +147,7 @@ export class QuestionnaireComponent implements OnInit {
     this.progressBarWidth = this.iterator / 8;
     let obs:any;
     this.clearError();  
-    var url: string = "http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/next/architecture?appId=123";
+    var url: string = "https://hlwybxzp9h.execute-api.us-east-1.amazonaws.com/portal-test/next/architecture?appId=123";
     // url = "http://localhost:3400/v1/questionnaire/next/architecture?appId=123";
     obs = this.http.post(url, this.buildNextQuestionRequest(this.question));
 
