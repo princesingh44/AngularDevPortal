@@ -68,7 +68,7 @@ export class QuestionnaireComponent implements OnInit {
       "componentName": ["SQL","NOSQL","Security","language", "WebUI"]
     }
 
-    this.recommendation =  this.http.post("http://a29c7a33b58be11eaa27e0a668647ca6-1545753706.us-east-2.elb.amazonaws.com:9005/getRecommendation",body);
+    this.recommendation =  this.http.post("https://s81a1dnffl.execute-api.us-east-1.amazonaws.com/portal-rcomendation-test/recommendations",body);
     this.recommendation.subscribe((response: Recommendation) => {
       this.technology = response;
       this.tech_stack_loaded = true;
