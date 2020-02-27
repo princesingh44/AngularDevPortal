@@ -4,6 +4,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { catchError, retry } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { Recommendation } from './models/recommendation-model';
 
 @Component({
   selector: 'app-question',
@@ -28,14 +29,18 @@ export class QuestionnaireComponent implements OnInit {
   toggled: any;
   progressBarWidth: number;
   recommendation: any;
-  technology: any;
+  technology: Recommendation;
   showRecommendation: boolean;
   checkBoxValues: any[];
+  tech_stack_loaded: boolean;
+
   // answerChoiceType : String;
 
   constructor(private http: HttpClient){
     this.iterator = 0;
     this.question = new Question();
+    this.technology = new Recommendation();
+    this.tech_stack_loaded = false;
     
     this.radioValue = ""
     this.show = false;
@@ -62,38 +67,26 @@ export class QuestionnaireComponent implements OnInit {
       "componentName": ["SQL","NOSQL","Security","language", "WebUI"]
     }
 
-    // body = [
-    //     {
-    //       "componentName": "SQL"
-    //     },
-    //     {
-    //       "componentName": "webUI"
-    //     },
-    //     {
-    //       "componentName": "NoSQL"
-    //     },
-    //     {
-    //       "componentName": "Security"
-    //     }
-    //   ];
     this.recommendation =  this.http.post("http://a29c7a33b58be11eaa27e0a668647ca6-1545753706.us-east-2.elb.amazonaws.com:9005/getRecommendation",body);
-    this.recommendation.subscribe((response: any) => {
+    this.recommendation.subscribe((response: Recommendation) => {
       this.technology = response;
+      this.tech_stack_loaded = true;
       console.log("technology")
       console.log(this.technology)
+      console.log(this.technology.webUI)
       // console.log("recommendation response is " + response.Technology.WebUI);
     },(err) => this.setError("Error while calling endpoint"));
   }
 
   getResponse(){
     let obs:any;
-    // let questionResponse: QuestionDetails;
-    let url: string = "http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/first/architecture?appId=123 ";
+    var url: string = "http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/first/architecture?appId=123";
+    
+    // url = "http://localhost:3400/v1/questionnaire/first/architecture?appId=123"
     console.log("url: " + url)
     obs = this.http.get(url);
 
     obs.subscribe((response: any) => {
-      // console.log("the response is " , response);
       this.question = response;
       this.prevRequestQuestion = this.question;
       this.questions.push(this.question);
@@ -102,11 +95,8 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   radioChangeHandler(event: any) {
-    // console.log("radio button selected is ")
-    // console.log(event.target.value)
     this.radioValue = event.target.value;
     console.log("inside radiochangehandler" + this.radioValue)
-    // console.log(this.radioValue)
   }
 
   clearRadios() {
@@ -125,7 +115,7 @@ export class QuestionnaireComponent implements OnInit {
         }
       }
     }
-    console.log(this.checkBoxValues);
+    // console.log(this.checkBoxValues);
     // this.question.answer.answerChoice = this.checkBoxValues;
   }
 
@@ -154,9 +144,10 @@ export class QuestionnaireComponent implements OnInit {
 
     this.progressBarWidth = this.iterator / 8;
     let obs:any;
-    // console.log("radioValue: " + this.radioValue);
-    this.clearError();    
-    obs = this.http.post("http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/next/architecture?appId=123",this.buildNextQuestionRequest(this.question))
+    this.clearError();  
+    var url: string = "http://ae693b71a58c711ea94a0025b25b975f-1194880435.us-east-2.elb.amazonaws.com:9003/v1/questionnaire/next/architecture?appId=123";
+    // url = "http://localhost:3400/v1/questionnaire/next/architecture?appId=123";
+    obs = this.http.post(url, this.buildNextQuestionRequest(this.question));
 
     obs.subscribe((response: any) => {
       this.question = response;
