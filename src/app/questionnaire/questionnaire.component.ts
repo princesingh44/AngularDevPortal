@@ -33,6 +33,7 @@ export class QuestionnaireComponent implements OnInit {
   showRecommendation: boolean;
   checkBoxValues: any[];
   tech_stack_loaded: boolean;
+  quesNum: number;
 
   // answerChoiceType : String;
 
@@ -88,6 +89,7 @@ export class QuestionnaireComponent implements OnInit {
 
     obs.subscribe((response: any) => {
       this.question = response;
+      this.extractQuestionNumber();
       this.prevRequestQuestion = this.question;
       this.questions.push(this.question);
       
@@ -151,6 +153,7 @@ export class QuestionnaireComponent implements OnInit {
 
     obs.subscribe((response: any) => {
       this.question = response;
+      this.extractQuestionNumber();
       this.questions.push(response);
       this.clearFields();
       
@@ -261,6 +264,10 @@ export class QuestionnaireComponent implements OnInit {
   //     console.log("the prevoius response is " , response);
   //   },(err) => this.setError("Error while calling endpoint"));
   // }
+
+  extractQuestionNumber() {
+    this.quesNum = parseInt(this.question.questionId.substring(1));
+  }
   
   handleError(error: HttpErrorResponse){
     this.setError(error.message);
