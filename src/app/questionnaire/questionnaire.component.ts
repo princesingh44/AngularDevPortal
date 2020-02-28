@@ -72,9 +72,9 @@ export class QuestionnaireComponent implements OnInit {
     this.recommendation.subscribe((response: Recommendation) => {
       this.technology = response;
       this.tech_stack_loaded = true;
-      console.log("technology")
-      console.log(this.technology)
-      console.log(this.technology.webUI)
+      // console.log("technology")
+      // console.log(this.technology)
+      // console.log(this.technology.webUI)
       // console.log("recommendation response is " + response.Technology.WebUI);
     },(err) => this.setError("Error while calling endpoint"));
   }
@@ -117,8 +117,6 @@ export class QuestionnaireComponent implements OnInit {
         }
       }
     }
-    // console.log(this.checkBoxValues);
-    // this.question.answer.answerChoice = this.checkBoxValues;
   }
 
   clearFields() {
@@ -150,24 +148,26 @@ export class QuestionnaireComponent implements OnInit {
     var url: string = "https://hlwybxzp9h.execute-api.us-east-1.amazonaws.com/portal-test/next/architecture?appId=123";
     // url = "http://localhost:3400/v1/questionnaire/next/architecture?appId=123";
     obs = this.http.post(url, this.buildNextQuestionRequest(this.question));
-
+    
+    // console.log("before")
     obs.subscribe((response: any) => {
       this.question = response;
       this.extractQuestionNumber();
       this.questions.push(response);
       this.clearFields();
-      
-      if (response.answer.answerChoiceType === "free-text" || response.answer.answerChoiceType === "numeric") {
-        this.userText = "";
-      }
+
       if (response.answer.answerChoiceType === "multi-choice") {
         this.qCheckbox = new Array(response.answer.answerChoice.length).fill(false);
       }
     },(err) => this.setError("Error while calling endpoint"));
   }
 
+  questionClear() {
+    this.question = new Question();
+  }
+
   buildNextQuestionRequest(resp : Question) : any{
-    
+    this.questionClear();
     if(this.radioValue !== ""){
       resp.answer.answerChoice = [];
       let anchoice = {"optionText":this.radioValue};
@@ -203,7 +203,6 @@ export class QuestionnaireComponent implements OnInit {
         this.setError("Please select an option to continue");
       }
       else {
-        // console.log("hello")
         this.toggled = null;
         this.iterator += 1;
         this.callBackend();
