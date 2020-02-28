@@ -45,9 +45,14 @@
           </div>
         </div>
   
-        <div id="textAreaDiv" *ngIf='(question.answer.answerChoiceType === "free-text" || question.answer.answerChoiceType === "numeric")'>
+        <div id="textAreaDiv" *ngIf='question.answer.answerChoiceType === "free-text"'>
           <p>
             <input class="form-control" type="text" [(ngModel)]="userText" placeholder="Please enter an answer" >
+          </p>
+        </div>
+        <div id="textAreaDiv" *ngIf='question.answer.answerChoiceType === "numeric"'>
+          <p>
+            <input class="form-control" type="text" [(ngModel)]="userText" placeholder="Please enter a number" >
           </p>
         </div>
   
