@@ -140,16 +140,7 @@ export class QuestionnaireComponent implements OnInit {
     this.raiseError = false;
   }
 
-  wait(ms){
-    var start = new Date().getTime();
-    var end = start;
-    while(end < start + ms) {
-      end = new Date().getTime();
-   }
- }
-
   callBackend() {
-     console.log(this.question)
 
     this.progressBarWidth = this.iterator / 8;
     let obs:any;
